@@ -26,7 +26,9 @@ const HierarchyNode = ({ node, depth, selectedId, onSelect }: HierarchyNodeProps
         type="button"
         onClick={handleClick}
         className={`flex w-full items-center justify-between rounded px-2 py-2 text-left text-sm ${
-          selectedId === node.id ? 'bg-slate-200 text-slate-900' : 'text-slate-700 hover:bg-slate-100'
+          selectedId === node.id
+            ? 'bg-slate-200 text-slate-900 dark:bg-slate-700 dark:text-slate-100'
+            : 'text-slate-700 hover:bg-slate-100 dark:text-slate-200 dark:hover:bg-slate-800'
         }`}
         style={{ paddingLeft: `${depth * 14 + 8}px` }}
       >
@@ -34,7 +36,7 @@ const HierarchyNode = ({ node, depth, selectedId, onSelect }: HierarchyNodeProps
           <NodeTypeIcon nodeType={node.type} />
           <span>{node.label}</span>
         </span>
-        {hasChildren ? <span className="text-xs text-slate-500">{isOpen ? '▾' : '▸'}</span> : null}
+        {hasChildren ? <span className="text-xs text-slate-500 dark:text-slate-400">{isOpen ? '▾' : '▸'}</span> : null}
       </button>
       {hasChildren && isOpen ? (
         <ul className="space-y-1">

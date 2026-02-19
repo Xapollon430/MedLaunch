@@ -54,7 +54,7 @@ const ProviderPerformancePage = () => {
           onSelect={setSelectedNode}
         />
 
-        <div className="min-h-[420px] flex-1 rounded-lg border border-slate-200 bg-white p-4 shadow-sm">
+        <div className="min-h-[420px] flex-1 rounded-lg border border-slate-200 bg-white p-4 shadow-sm dark:border-slate-700 dark:bg-slate-900">
           {selectedNode
             ? viewMode === 'monthly'
               ? <ProviderPerformanceTable node={selectedNode} />

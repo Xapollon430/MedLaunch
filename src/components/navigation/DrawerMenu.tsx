@@ -17,12 +17,12 @@ const links = [
 const DrawerMenu = ({ open, onClose }: DrawerMenuProps) => {
   return (
     <aside
-      className={`fixed left-0 top-16 z-20 h-[calc(100vh-4rem)] w-72 border-r border-slate-200 bg-white p-3 shadow-sm transition-transform ${
+      className={`fixed left-0 top-16 z-20 h-[calc(100vh-4rem)] w-72 border-r border-slate-200 bg-white p-3 shadow-sm transition-transform dark:border-slate-700 dark:bg-slate-900 ${
         open ? 'translate-x-0' : '-translate-x-full'
       }`}
       aria-hidden={!open}
     >
-      <div className="mb-2 text-xs font-semibold uppercase text-slate-500">Dashboards</div>
+      <div className="mb-2 text-xs font-semibold uppercase text-slate-500 dark:text-slate-400">Dashboards</div>
       <ul className="space-y-1">
         {links.map((link) => (
           <li key={link.to}>
@@ -30,7 +30,11 @@ const DrawerMenu = ({ open, onClose }: DrawerMenuProps) => {
               to={link.to}
               onClick={onClose}
               className={({ isActive }) =>
-                `block rounded px-3 py-2 text-sm ${isActive ? 'bg-slate-100 text-slate-900' : 'text-slate-700 hover:bg-slate-50'}`
+                `block rounded px-3 py-2 text-sm ${
+                  isActive
+                    ? 'bg-slate-100 text-slate-900 dark:bg-slate-700 dark:text-slate-100'
+                    : 'text-slate-700 hover:bg-slate-50 dark:text-slate-300 dark:hover:bg-slate-800'
+                }`
               }
             >
               {link.label}

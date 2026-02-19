@@ -15,7 +15,7 @@ const titleMap: Record<string, string> = {
 
 const AppShell = () => {
   const location = useLocation()
-  const { currentDashboard, isDrawerOpen, setCurrentDashboard, setDrawerOpen, toggleDrawer } =
+  const { currentDashboard, isDrawerOpen, setCurrentDashboard, setDrawerOpen, toggleDrawer, theme, toggleTheme } =
     useAppContext()
 
   useEffect(() => {
@@ -24,8 +24,8 @@ const AppShell = () => {
   }, [location.pathname, setCurrentDashboard, setDrawerOpen])
 
   return (
-    <div className="min-h-screen bg-slate-50">
-      <Navbar title={currentDashboard} onMenuClick={toggleDrawer} />
+    <div className="min-h-screen bg-slate-50 dark:bg-slate-950">
+      <Navbar title={currentDashboard} onMenuClick={toggleDrawer} theme={theme} onThemeToggle={toggleTheme} />
       <DrawerMenu open={isDrawerOpen} onClose={() => setDrawerOpen(false)} />
 
       {isDrawerOpen ? (
@@ -33,11 +33,11 @@ const AppShell = () => {
           type="button"
           aria-label="Close menu"
           onClick={() => setDrawerOpen(false)}
-          className="fixed inset-0 top-16 z-10 bg-slate-900/20"
+          className="fixed inset-0 top-16 z-10 bg-slate-900/20 dark:bg-slate-950/60"
         />
       ) : null}
 
-      <main className="relative z-0 px-4 pb-8 pt-20">
+      <main className="relative z-0 px-4 pb-8 pt-20 text-slate-900 dark:text-slate-100">
         <Outlet />
       </main>
     </div>

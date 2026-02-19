@@ -4,7 +4,7 @@ type NodeTypeIconProps = {
   nodeType: HierarchyNode['type']
 }
 
-const iconClassName = 'h-4 w-4 shrink-0 text-slate-500'
+const iconClassName = 'h-4 w-4 shrink-0 text-slate-500 dark:text-slate-300'
 
 const NodeTypeIcon = ({ nodeType }: NodeTypeIconProps) => {
   if (nodeType === 'location') {

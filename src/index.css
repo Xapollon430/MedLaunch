@@ -2,6 +2,24 @@
 @tailwind components;
 @tailwind utilities;
 
+:root {
+  color-scheme: light;
+  --chart-grid: #e2e8f0;
+  --chart-axis: #475569;
+  --chart-tooltip-bg: #ffffff;
+  --chart-tooltip-border: #cbd5e1;
+  --chart-tooltip-text: #0f172a;
+}
+
+:root.dark {
+  color-scheme: dark;
+  --chart-grid: #334155;
+  --chart-axis: #cbd5e1;
+  --chart-tooltip-bg: #0f172a;
+  --chart-tooltip-border: #475569;
+  --chart-tooltip-text: #e2e8f0;
+}
+
 html,
 body,
 #root {
@@ -14,4 +32,9 @@ body {
     Helvetica, Arial, sans-serif;
   background-color: #f8fafc;
   color: #0f172a;
+}
+
+:root.dark body {
+  background-color: #020617;
+  color: #e2e8f0;
 }

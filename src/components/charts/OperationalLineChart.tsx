@@ -64,8 +64,8 @@ const OperationalLineChart = ({ title, data, metric }: OperationalLineChartProps
   }
 
   return (
-    <section className="rounded-lg border border-slate-200 bg-white p-4 shadow-sm">
-      <h3 className="mb-3 text-lg font-semibold text-slate-900">{title}</h3>
+    <section className="rounded-lg border border-slate-200 bg-white p-4 shadow-sm dark:border-slate-700 dark:bg-slate-900">
+      <h3 className="mb-3 text-lg font-semibold text-slate-900 dark:text-slate-100">{title}</h3>
       <div className="w-full overflow-x-auto">
         <div className="mx-auto w-[920px]">
           <LineChart
@@ -74,10 +74,21 @@ const OperationalLineChart = ({ title, data, metric }: OperationalLineChartProps
             data={chartData}
             margin={{ top: 12, right: 18, left: 0, bottom: 8 }}
           >
-            <CartesianGrid strokeDasharray="3 3" stroke="#e2e8f0" />
-            <XAxis dataKey="month" tick={{ fontSize: 11 }} />
-            <YAxis tick={{ fontSize: 11 }} tickFormatter={(value) => formatValue(metric, value as number)} />
-            <Tooltip formatter={(value) => formatTooltipValue(metric, value)} />
+            <CartesianGrid strokeDasharray="3 3" stroke="var(--chart-grid)" />
+            <XAxis dataKey="month" tick={{ fontSize: 11, fill: 'var(--chart-axis)' }} />
+            <YAxis
+              tick={{ fontSize: 11, fill: 'var(--chart-axis)' }}
+              tickFormatter={(value) => formatValue(metric, value as number)}
+            />
+            <Tooltip
+              formatter={(value) => formatTooltipValue(metric, value)}
+              contentStyle={{
+                backgroundColor: 'var(--chart-tooltip-bg)',
+                borderColor: 'var(--chart-tooltip-border)',
+              }}
+              labelStyle={{ color: 'var(--chart-tooltip-text)' }}
+              itemStyle={{ color: 'var(--chart-tooltip-text)' }}
+            />
             {years.map((year, index) => (
               <Line
                 key={year}

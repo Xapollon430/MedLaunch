@@ -21,7 +21,7 @@ const HierarchySidebar = ({ nodes, selectedId, onSelect }: HierarchySidebarProps
   )
 
   return (
-    <aside className="w-72 shrink-0 rounded-lg border border-slate-200 bg-white p-3 shadow-sm">
+    <aside className="w-72 shrink-0 rounded-lg border border-slate-200 bg-white p-3 shadow-sm dark:border-slate-700 dark:bg-slate-900">
       <div className="mb-3 flex flex-wrap gap-2">
         {SIDEBAR_FILTERS.map((filterMode) => (
           <button
@@ -30,8 +30,8 @@ const HierarchySidebar = ({ nodes, selectedId, onSelect }: HierarchySidebarProps
             onClick={() => setMode(filterMode)}
             className={`rounded border px-2 py-1 text-xs ${
               mode === filterMode
-                ? 'border-slate-900 bg-slate-900 text-white'
-                : 'border-slate-300 bg-white text-slate-700'
+                ? 'border-slate-900 bg-slate-900 text-white dark:border-slate-100 dark:bg-slate-100 dark:text-slate-900'
+                : 'border-slate-300 bg-white text-slate-700 dark:border-slate-600 dark:bg-slate-800 dark:text-slate-200'
             }`}
           >
             {filterMode}
@@ -43,7 +43,7 @@ const HierarchySidebar = ({ nodes, selectedId, onSelect }: HierarchySidebarProps
         value={searchTerm}
         onChange={(event) => setSearchTerm(event.target.value)}
         placeholder="Search"
-        className="mb-3 w-full rounded border border-slate-300 px-3 py-2 text-sm"
+        className="mb-3 w-full rounded border border-slate-300 px-3 py-2 text-sm text-slate-900 placeholder:text-slate-400 dark:border-slate-600 dark:bg-slate-800 dark:text-slate-100 dark:placeholder:text-slate-400"
       />
 
       <ul className="space-y-1">
@@ -55,8 +55,8 @@ const HierarchySidebar = ({ nodes, selectedId, onSelect }: HierarchySidebarProps
                   onClick={() => onSelect(node)}
                   className={`w-full rounded px-2 py-2 text-left text-sm ${
                     selectedId === node.id
-                      ? 'bg-slate-200 text-slate-900'
-                      : 'text-slate-700 hover:bg-slate-100'
+                      ? 'bg-slate-200 text-slate-900 dark:bg-slate-700 dark:text-slate-100'
+                      : 'text-slate-700 hover:bg-slate-100 dark:text-slate-200 dark:hover:bg-slate-800'
                   }`}
                 >
                   <span className="flex items-center gap-2">

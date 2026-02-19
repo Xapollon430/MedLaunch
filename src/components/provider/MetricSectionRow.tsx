@@ -39,7 +39,7 @@ const MetricSectionRow = ({
   return (
     <>
       <tr className={rowClassName}>
-        <td className="border border-slate-200 px-3 py-2 text-sm font-medium text-slate-800">
+        <td className="border border-slate-200 px-3 py-2 text-sm font-medium text-slate-800 dark:border-slate-700 dark:text-slate-100">
           {expandable ? (
             <button
               type="button"
@@ -57,13 +57,13 @@ const MetricSectionRow = ({
         {metric.values.map((value, index) => (
           <td
             key={`${label}-${index}`}
-            className={`border border-slate-200 px-2 py-2 text-right text-sm ${resolveClassName(valueClassName, value)}`}
+            className={`border border-slate-200 px-2 py-2 text-right text-sm dark:border-slate-700 ${resolveClassName(valueClassName, value)}`}
           >
             {formatValue(value)}
           </td>
         ))}
         <td
-          className={`border border-slate-200 bg-slate-200 px-2 py-2 text-right text-sm font-semibold text-slate-900 ${resolveClassName(totalClassName, metric.total)}`}
+          className={`border border-slate-200 bg-slate-200 px-2 py-2 text-right text-sm font-semibold text-slate-900 dark:border-slate-700 dark:bg-slate-700 dark:text-slate-100 ${resolveClassName(totalClassName, metric.total)}`}
         >
           {formatValue(metric.total)}
         </td>
@@ -71,17 +71,17 @@ const MetricSectionRow = ({
 
       {expandable && expanded
         ? detailRows.map((row) => (
-            <tr key={`${label}-${row.label}`} className="bg-slate-100">
-              <td className="border border-slate-200 px-3 py-2 pl-8 text-sm text-slate-800">{row.label}</td>
+            <tr key={`${label}-${row.label}`} className="bg-slate-100 dark:bg-slate-800/70">
+              <td className="border border-slate-200 px-3 py-2 pl-8 text-sm text-slate-800 dark:border-slate-700 dark:text-slate-200">{row.label}</td>
               {row.metric.values.map((value, index) => (
                 <td
                   key={`${row.label}-${index}`}
-                  className="border border-slate-200 px-2 py-2 text-right text-sm text-slate-800"
+                  className="border border-slate-200 px-2 py-2 text-right text-sm text-slate-800 dark:border-slate-700 dark:text-slate-200"
                 >
                   {row.formatValue(value)}
                 </td>
               ))}
-              <td className="border border-slate-200 bg-slate-200 px-2 py-2 text-right text-sm font-semibold text-slate-900">
+              <td className="border border-slate-200 bg-slate-200 px-2 py-2 text-right text-sm font-semibold text-slate-900 dark:border-slate-700 dark:bg-slate-700 dark:text-slate-100">
                 {row.formatValue(row.metric.total)}
               </td>
             </tr>

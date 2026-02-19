@@ -11,11 +11,13 @@ type ProviderPerformanceTableProps = {
 const formatPercent = (value: number) => `${value.toFixed(2)}%`
 const getProfitValueClassName = (value: number) =>
   value < 0
-    ? 'bg-rose-200 text-rose-900 font-semibold'
-    : 'bg-emerald-200 text-emerald-900 font-semibold'
+    ? 'bg-rose-200 text-rose-900 font-semibold dark:bg-rose-900/60 dark:text-rose-200'
+    : 'bg-emerald-200 text-emerald-900 font-semibold dark:bg-emerald-900/60 dark:text-emerald-200'
 
 const getProfitTotalClassName = (value: number) =>
-  value < 0 ? 'bg-rose-300 text-rose-950 font-bold' : 'bg-emerald-300 text-emerald-950 font-bold'
+  value < 0
+    ? 'bg-rose-300 text-rose-950 font-bold dark:bg-rose-800 dark:text-rose-100'
+    : 'bg-emerald-300 text-emerald-950 font-bold dark:bg-emerald-800 dark:text-emerald-100'
 
 const ProviderPerformanceTable = ({ node }: ProviderPerformanceTableProps) => {
   const [chargesExpanded, setChargesExpanded] = useState(true)
@@ -28,22 +30,22 @@ const ProviderPerformanceTable = ({ node }: ProviderPerformanceTableProps) => {
 
   return (
     <div className="overflow-x-auto">
-      <h3 className="mb-3 text-xl font-semibold text-slate-900">{node.label}</h3>
-      <table className="min-w-full border-collapse bg-white">
+      <h3 className="mb-3 text-xl font-semibold text-slate-900 dark:text-slate-100">{node.label}</h3>
+      <table className="min-w-full border-collapse bg-white dark:bg-slate-900">
         <thead>
           <tr>
-            <th className="border border-slate-200 bg-slate-100 px-3 py-2 text-left text-xs font-semibold uppercase tracking-wide text-slate-600">
+            <th className="border border-slate-200 bg-slate-100 px-3 py-2 text-left text-xs font-semibold uppercase tracking-wide text-slate-600 dark:border-slate-700 dark:bg-slate-800 dark:text-slate-300">
               Metric
             </th>
             {MONTHS.map((month) => (
               <th
                 key={month}
-                className="border border-slate-200 bg-slate-100 px-2 py-2 text-right text-xs font-semibold uppercase tracking-wide text-slate-600"
+                className="border border-slate-200 bg-slate-100 px-2 py-2 text-right text-xs font-semibold uppercase tracking-wide text-slate-600 dark:border-slate-700 dark:bg-slate-800 dark:text-slate-300"
               >
                 {month}
               </th>
             ))}
-            <th className="border border-slate-200 bg-slate-100 px-2 py-2 text-right text-xs font-semibold uppercase tracking-wide text-slate-600">
+            <th className="border border-slate-200 bg-slate-100 px-2 py-2 text-right text-xs font-semibold uppercase tracking-wide text-slate-600 dark:border-slate-700 dark:bg-slate-800 dark:text-slate-300">
               Total
             </th>
           </tr>
@@ -53,7 +55,7 @@ const ProviderPerformanceTable = ({ node }: ProviderPerformanceTableProps) => {
             label={data.totalVisits.label}
             metric={data.totalVisits}
             formatValue={formatNumber}
-            rowClassName="bg-blue-100"
+            rowClassName="bg-blue-100 dark:bg-blue-950/60"
           />
 
           <MetricSectionRow
@@ -68,7 +70,7 @@ const ProviderPerformanceTable = ({ node }: ProviderPerformanceTableProps) => {
               metric: cptCodeMetric,
               formatValue: formatNumber,
             }))}
-            rowClassName="bg-amber-100"
+            rowClassName="bg-amber-100 dark:bg-amber-950/60"
           />
 
           <MetricSectionRow
@@ -85,7 +87,7 @@ const ProviderPerformanceTable = ({ node }: ProviderPerformanceTableProps) => {
                 formatValue: (value) => value.toFixed(2),
               },
             ]}
-            rowClassName="bg-emerald-100"
+            rowClassName="bg-emerald-100 dark:bg-emerald-950/60"
           />
 
           <MetricSectionRow
@@ -102,7 +104,7 @@ const ProviderPerformanceTable = ({ node }: ProviderPerformanceTableProps) => {
                 formatValue: formatCurrency,
               },
             ]}
-            rowClassName="bg-violet-100"
+            rowClassName="bg-violet-100 dark:bg-violet-950/60"
           />
 
           <MetricSectionRow
@@ -124,7 +126,7 @@ const ProviderPerformanceTable = ({ node }: ProviderPerformanceTableProps) => {
                 formatValue: formatCurrency,
               },
             ]}
-            rowClassName="bg-sky-100"
+            rowClassName="bg-sky-100 dark:bg-sky-950/60"
           />
 
           <MetricSectionRow
@@ -141,7 +143,7 @@ const ProviderPerformanceTable = ({ node }: ProviderPerformanceTableProps) => {
                 formatValue: formatPercent,
               },
             ]}
-            rowClassName="bg-rose-100"
+            rowClassName="bg-rose-100 dark:bg-rose-950/60"
           />
 
           {data.payerPayment ? (
@@ -149,7 +151,7 @@ const ProviderPerformanceTable = ({ node }: ProviderPerformanceTableProps) => {
               label={data.payerPayment.label}
               metric={data.payerPayment}
               formatValue={formatCurrency}
-              rowClassName="bg-teal-100"
+              rowClassName="bg-teal-100 dark:bg-teal-950/60"
             />
           ) : null}
 
@@ -158,7 +160,7 @@ const ProviderPerformanceTable = ({ node }: ProviderPerformanceTableProps) => {
               label={data.patientPayment.label}
               metric={data.patientPayment}
               formatValue={formatCurrency}
-              rowClassName="bg-cyan-100"
+              rowClassName="bg-cyan-100 dark:bg-cyan-950/60"
             />
           ) : null}
 
@@ -166,14 +168,14 @@ const ProviderPerformanceTable = ({ node }: ProviderPerformanceTableProps) => {
             label={data.payroll.label}
             metric={data.payroll}
             formatValue={formatCurrency}
-            rowClassName="bg-orange-100"
+            rowClassName="bg-orange-100 dark:bg-orange-950/60"
           />
 
           <MetricSectionRow
             label={data.operatingProfit.label}
             metric={data.operatingProfit}
             formatValue={formatCurrency}
-            rowClassName="bg-slate-100"
+            rowClassName="bg-slate-100 dark:bg-slate-800"
             valueClassName={getProfitValueClassName}
             totalClassName={getProfitTotalClassName}
           />
