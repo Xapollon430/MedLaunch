@@ -1,5 +1,6 @@
 import { Navigate, createBrowserRouter } from 'react-router-dom'
 import AppShell from './layout/AppShell'
+import OperationalPage from './pages/OperationalPage'
 import ProviderPerformancePage from './pages/ProviderPerformancePage'
 import ProviderRankingsPage from './pages/ProviderRankingsPage'
 
@@ -12,7 +13,7 @@ export const router = createBrowserRouter([
       { path: 'provider-performance', element: <ProviderPerformancePage /> },
       { path: 'provider-rankings', element: <ProviderRankingsPage /> },
       { path: 'financial', element: <ProviderPerformancePage /> },
-      { path: 'operational', element: <ProviderPerformancePage /> },
+      { path: 'operational', element: <OperationalPage /> },
       { path: 'clinical', element: <ProviderPerformancePage /> },
       { path: 'data-sources', element: <ProviderPerformancePage /> },
     ],
