@@ -1,5 +1,6 @@
 import { useMemo, useState } from 'react'
 import HierarchySidebar from '../components/provider/HierarchySidebar'
+import ProviderPerformanceTable from '../components/provider/ProviderPerformanceTable'
 import { mockDashboardData } from '../data/mockDashboardData'
 import type { HierarchyNode } from '../types/dashboard'
 
@@ -15,11 +16,8 @@ const ProviderPerformancePage = () => {
         onSelect={setSelectedNode}
       />
 
-      <div className="min-h-[420px] flex-1 rounded-lg border border-slate-200 bg-white p-6 shadow-sm">
-        <h2 className="text-2xl font-semibold text-slate-900">Provider Performance</h2>
-        <p className="mt-1 text-sm text-slate-600">
-          Selected: <span className="font-medium">{selectedNode?.label ?? 'None'}</span>
-        </p>
+      <div className="min-h-[420px] flex-1 rounded-lg border border-slate-200 bg-white p-4 shadow-sm">
+        {selectedNode ? <ProviderPerformanceTable node={selectedNode} /> : null}
       </div>
     </section>
   )

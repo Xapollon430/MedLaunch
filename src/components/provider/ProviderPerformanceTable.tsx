@@ -1,0 +1,155 @@
+import { useState } from 'react'
+import { MONTHS } from '../../data/constants'
+import type { HierarchyNode } from '../../types/dashboard'
+import { formatCurrency, formatNumber } from '../../utils/format'
+import MetricSectionRow from './MetricSectionRow'
+
+type ProviderPerformanceTableProps = {
+  node: HierarchyNode
+}
+
+const formatPercent = (value: number) => `${value.toFixed(2)}%`
+
+const ProviderPerformanceTable = ({ node }: ProviderPerformanceTableProps) => {
+  const [chargesExpanded, setChargesExpanded] = useState(false)
+  const [rvusExpanded, setRvusExpanded] = useState(false)
+  const [paymentsExpanded, setPaymentsExpanded] = useState(false)
+  const [adjustmentsExpanded, setAdjustmentsExpanded] = useState(false)
+
+  const data = node.data
+
+  return (
+    <div className="overflow-x-auto">
+      <h3 className="mb-3 text-xl font-semibold text-slate-900">{node.label}</h3>
+      <table className="min-w-full border-collapse bg-white">
+        <thead>
+          <tr>
+            <th className="border border-slate-200 bg-slate-100 px-3 py-2 text-left text-xs font-semibold uppercase tracking-wide text-slate-600">
+              Metric
+            </th>
+            {MONTHS.map((month) => (
+              <th
+                key={month}
+                className="border border-slate-200 bg-slate-100 px-2 py-2 text-right text-xs font-semibold uppercase tracking-wide text-slate-600"
+              >
+                {month}
+              </th>
+            ))}
+            <th className="border border-slate-200 bg-slate-100 px-2 py-2 text-right text-xs font-semibold uppercase tracking-wide text-slate-600">
+              Total
+            </th>
+          </tr>
+        </thead>
+        <tbody>
+          <MetricSectionRow label={data.totalVisits.label} metric={data.totalVisits} formatValue={formatNumber} />
+
+          <MetricSectionRow
+            label={data.rvus.label}
+            metric={data.rvus}
+            formatValue={formatNumber}
+            expandable
+            expanded={rvusExpanded}
+            onToggle={() => setRvusExpanded((prev) => !prev)}
+            detailRows={[
+              {
+                label: data.rvuPerPatient.label,
+                metric: data.rvuPerPatient,
+                formatValue: (value) => value.toFixed(2),
+              },
+            ]}
+            rowClassName="bg-emerald-50"
+          />
+
+          <MetricSectionRow
+            label={data.charges.label}
+            metric={data.charges}
+            formatValue={formatCurrency}
+            expandable
+            expanded={chargesExpanded}
+            onToggle={() => setChargesExpanded((prev) => !prev)}
+            detailRows={[
+              {
+                label: data.chargePerPatient.label,
+                metric: data.chargePerPatient,
+                formatValue: formatCurrency,
+              },
+            ]}
+            rowClassName="bg-violet-50"
+          />
+
+          <MetricSectionRow
+            label={data.payments.label}
+            metric={data.payments}
+            formatValue={formatCurrency}
+            expandable
+            expanded={paymentsExpanded}
+            onToggle={() => setPaymentsExpanded((prev) => !prev)}
+            detailRows={[
+              {
+                label: data.paymentPercentOfCharges.label,
+                metric: data.paymentPercentOfCharges,
+                formatValue: formatPercent,
+              },
+              {
+                label: data.averageReceiptsPerPatient.label,
+                metric: data.averageReceiptsPerPatient,
+                formatValue: formatCurrency,
+              },
+            ]}
+            rowClassName="bg-sky-50"
+          />
+
+          <MetricSectionRow
+            label={data.adjustments.label}
+            metric={data.adjustments}
+            formatValue={formatCurrency}
+            expandable
+            expanded={adjustmentsExpanded}
+            onToggle={() => setAdjustmentsExpanded((prev) => !prev)}
+            detailRows={[
+              {
+                label: data.adjustmentPercentOfCharges.label,
+                metric: data.adjustmentPercentOfCharges,
+                formatValue: formatPercent,
+              },
+            ]}
+            rowClassName="bg-rose-50"
+          />
+
+          {data.payerPayment ? (
+            <MetricSectionRow
+              label={data.payerPayment.label}
+              metric={data.payerPayment}
+              formatValue={formatCurrency}
+              rowClassName="bg-teal-50"
+            />
+          ) : null}
+
+          {data.patientPayment ? (
+            <MetricSectionRow
+              label={data.patientPayment.label}
+              metric={data.patientPayment}
+              formatValue={formatCurrency}
+              rowClassName="bg-cyan-50"
+            />
+          ) : null}
+
+          <MetricSectionRow
+            label={data.payroll.label}
+            metric={data.payroll}
+            formatValue={formatCurrency}
+            rowClassName="bg-orange-50"
+          />
+
+          <MetricSectionRow
+            label={data.operatingProfit.label}
+            metric={data.operatingProfit}
+            formatValue={formatCurrency}
+          />
+        </tbody>
+      </table>
+    </div>
+  )
+}
+
+export default ProviderPerformanceTable
