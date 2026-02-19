@@ -1,31 +1,43 @@
-import { useEffect } from 'react'
-import { Outlet, useLocation } from 'react-router-dom'
-import DrawerMenu from '../components/navigation/DrawerMenu'
-import Navbar from '../components/navigation/Navbar'
-import { useAppContext } from '../context/AppContext'
+import { useEffect } from "react";
+import { Outlet, useLocation } from "react-router-dom";
+import DrawerMenu from "../components/navigation/DrawerMenu";
+import Navbar from "../components/navigation/Navbar";
+import { useAppContext } from "../context/AppContext";
 
 const titleMap: Record<string, string> = {
-  '/provider-performance': 'Provider Performance',
-  '/provider-rankings': 'Provider Rankings',
-  '/financial': 'Financial Dashboard',
-  '/operational': 'Operational Dashboard',
-  '/clinical': 'Clinical Dashboard',
-  '/data-sources': 'Data Sources',
-}
+  "/provider-performance": "Provider Performance",
+  "/provider-rankings": "Provider Rankings",
+  "/financial": "Financial Dashboard",
+  "/operational": "Operational Dashboard",
+  "/clinical": "Clinical Dashboard",
+  "/data-sources": "Data Sources",
+};
 
 const AppShell = () => {
-  const location = useLocation()
-  const { currentDashboard, isDrawerOpen, setCurrentDashboard, setDrawerOpen, toggleDrawer, theme, toggleTheme } =
-    useAppContext()
+  const location = useLocation();
+  const {
+    currentDashboard,
+    isDrawerOpen,
+    setCurrentDashboard,
+    setDrawerOpen,
+    toggleDrawer,
+    theme,
+    toggleTheme,
+  } = useAppContext();
 
   useEffect(() => {
-    setCurrentDashboard(titleMap[location.pathname] ?? 'Provider Performance')
-    setDrawerOpen(false)
-  }, [location.pathname, setCurrentDashboard, setDrawerOpen])
+    setCurrentDashboard(titleMap[location.pathname] ?? "Provider Performance");
+    setDrawerOpen(false);
+  }, [location.pathname, setCurrentDashboard, setDrawerOpen]);
 
   return (
     <div className="min-h-screen bg-slate-50 dark:bg-slate-950">
-      <Navbar title={currentDashboard} onMenuClick={toggleDrawer} theme={theme} onThemeToggle={toggleTheme} />
+      <Navbar
+        title={currentDashboard}
+        onMenuClick={toggleDrawer}
+        theme={theme}
+        onThemeToggle={toggleTheme}
+      />
       <DrawerMenu open={isDrawerOpen} onClose={() => setDrawerOpen(false)} />
 
       {isDrawerOpen ? (
@@ -41,7 +53,7 @@ const AppShell = () => {
         <Outlet />
       </main>
     </div>
-  )
-}
+  );
+};
 
-export default AppShell
+export default AppShell;
