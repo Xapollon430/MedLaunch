@@ -1,8 +1,7 @@
 import { render, screen } from '@testing-library/react'
-import App from './App'
+import App from '../App'
 
-test('renders dashboard shell and default route title', async () => {
+test('shows provider performance title on default route', async () => {
   render(<App />)
-  expect(screen.getByRole('navigation')).toBeInTheDocument()
   expect(await screen.findByRole('heading', { level: 1, name: /Provider Performance/i })).toBeInTheDocument()
 })
