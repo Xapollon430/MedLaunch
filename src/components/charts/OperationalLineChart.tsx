@@ -30,6 +30,22 @@ const formatValue = (metric: OperationalMetricKey, value: number) => {
   return value.toLocaleString()
 }
 
+const formatTooltipValue = (metric: OperationalMetricKey, value: unknown) => {
+  if (typeof value === 'number') {
+    return formatValue(metric, value)
+  }
+
+  if (typeof value === 'string') {
+    return value
+  }
+
+  if (Array.isArray(value)) {
+    return value.join(', ')
+  }
+
+  return ''
+}
+
 const OperationalLineChart = ({ title, data, metric }: OperationalLineChartProps) => {
   const years = Object.keys(data).sort()
 
@@ -55,7 +71,7 @@ const OperationalLineChart = ({ title, data, metric }: OperationalLineChartProps
           <CartesianGrid strokeDasharray="3 3" stroke="#e2e8f0" />
           <XAxis dataKey="month" tick={{ fontSize: 11 }} />
           <YAxis tick={{ fontSize: 11 }} tickFormatter={(value) => formatValue(metric, value as number)} />
-          <Tooltip formatter={(value: number) => formatValue(metric, value)} />
+          <Tooltip formatter={(value) => formatTooltipValue(metric, value)} />
           {years.map((year, index) => (
             <Line
               key={year}

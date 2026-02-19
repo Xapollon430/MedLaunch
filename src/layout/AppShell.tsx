@@ -20,13 +20,24 @@ const AppShell = () => {
 
   useEffect(() => {
     setCurrentDashboard(titleMap[location.pathname] ?? 'Provider Performance')
-  }, [location.pathname, setCurrentDashboard])
+    setDrawerOpen(false)
+  }, [location.pathname, setCurrentDashboard, setDrawerOpen])
 
   return (
     <div className="min-h-screen bg-slate-50">
       <Navbar title={currentDashboard} onMenuClick={toggleDrawer} />
       <DrawerMenu open={isDrawerOpen} onClose={() => setDrawerOpen(false)} />
-      <main className="px-4 pb-8 pt-20">
+
+      {isDrawerOpen ? (
+        <button
+          type="button"
+          aria-label="Close menu"
+          onClick={() => setDrawerOpen(false)}
+          className="fixed inset-0 top-16 z-10 bg-slate-900/20"
+        />
+      ) : null}
+
+      <main className="relative z-0 px-4 pb-8 pt-20">
         <Outlet />
       </main>
     </div>

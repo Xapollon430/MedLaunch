@@ -7,6 +7,14 @@ type RankingsBarChartProps = {
   color: string
 }
 
+const formatTooltipValue = (value: number | string | undefined) => {
+  if (typeof value === 'number') {
+    return value.toLocaleString()
+  }
+
+  return value ?? ''
+}
+
 const RankingsBarChart = ({ title, categories, values, color }: RankingsBarChartProps) => {
   const chartData = categories.map((name, index) => ({ name, value: values[index] ?? 0 }))
 
@@ -29,7 +37,7 @@ const RankingsBarChart = ({ title, categories, values, color }: RankingsBarChart
             tick={{ fontSize: 11 }}
           />
           <YAxis tick={{ fontSize: 11 }} />
-          <Tooltip formatter={(value: number) => value.toLocaleString()} />
+          <Tooltip formatter={formatTooltipValue} />
           <Bar dataKey="value" fill={color} radius={[6, 6, 0, 0]} />
         </BarChart>
       </div>
