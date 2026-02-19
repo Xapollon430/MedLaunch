@@ -9,12 +9,20 @@ type ProviderPerformanceTableProps = {
 }
 
 const formatPercent = (value: number) => `${value.toFixed(2)}%`
+const getProfitValueClassName = (value: number) =>
+  value < 0
+    ? 'bg-rose-200 text-rose-900 font-semibold'
+    : 'bg-emerald-200 text-emerald-900 font-semibold'
+
+const getProfitTotalClassName = (value: number) =>
+  value < 0 ? 'bg-rose-300 text-rose-950 font-bold' : 'bg-emerald-300 text-emerald-950 font-bold'
 
 const ProviderPerformanceTable = ({ node }: ProviderPerformanceTableProps) => {
-  const [chargesExpanded, setChargesExpanded] = useState(false)
-  const [rvusExpanded, setRvusExpanded] = useState(false)
-  const [paymentsExpanded, setPaymentsExpanded] = useState(false)
-  const [adjustmentsExpanded, setAdjustmentsExpanded] = useState(false)
+  const [chargesExpanded, setChargesExpanded] = useState(true)
+  const [rvusExpanded, setRvusExpanded] = useState(true)
+  const [paymentsExpanded, setPaymentsExpanded] = useState(true)
+  const [adjustmentsExpanded, setAdjustmentsExpanded] = useState(true)
+  const [cptExpanded, setCptExpanded] = useState(true)
 
   const data = node.data
 
@@ -41,7 +49,27 @@ const ProviderPerformanceTable = ({ node }: ProviderPerformanceTableProps) => {
           </tr>
         </thead>
         <tbody>
-          <MetricSectionRow label={data.totalVisits.label} metric={data.totalVisits} formatValue={formatNumber} />
+          <MetricSectionRow
+            label={data.totalVisits.label}
+            metric={data.totalVisits}
+            formatValue={formatNumber}
+            rowClassName="bg-blue-100"
+          />
+
+          <MetricSectionRow
+            label={data.cptCodingTotal.label}
+            metric={data.cptCodingTotal}
+            formatValue={formatNumber}
+            expandable
+            expanded={cptExpanded}
+            onToggle={() => setCptExpanded((prev) => !prev)}
+            detailRows={data.cptCodes.map((cptCodeMetric) => ({
+              label: `${cptCodeMetric.code} - ${cptCodeMetric.label}`,
+              metric: cptCodeMetric,
+              formatValue: formatNumber,
+            }))}
+            rowClassName="bg-amber-100"
+          />
 
           <MetricSectionRow
             label={data.rvus.label}
@@ -57,7 +85,7 @@ const ProviderPerformanceTable = ({ node }: ProviderPerformanceTableProps) => {
                 formatValue: (value) => value.toFixed(2),
               },
             ]}
-            rowClassName="bg-emerald-50"
+            rowClassName="bg-emerald-100"
           />
 
           <MetricSectionRow
@@ -74,7 +102,7 @@ const ProviderPerformanceTable = ({ node }: ProviderPerformanceTableProps) => {
                 formatValue: formatCurrency,
               },
             ]}
-            rowClassName="bg-violet-50"
+            rowClassName="bg-violet-100"
           />
 
           <MetricSectionRow
@@ -96,7 +124,7 @@ const ProviderPerformanceTable = ({ node }: ProviderPerformanceTableProps) => {
                 formatValue: formatCurrency,
               },
             ]}
-            rowClassName="bg-sky-50"
+            rowClassName="bg-sky-100"
           />
 
           <MetricSectionRow
@@ -113,7 +141,7 @@ const ProviderPerformanceTable = ({ node }: ProviderPerformanceTableProps) => {
                 formatValue: formatPercent,
               },
             ]}
-            rowClassName="bg-rose-50"
+            rowClassName="bg-rose-100"
           />
 
           {data.payerPayment ? (
@@ -121,7 +149,7 @@ const ProviderPerformanceTable = ({ node }: ProviderPerformanceTableProps) => {
               label={data.payerPayment.label}
               metric={data.payerPayment}
               formatValue={formatCurrency}
-              rowClassName="bg-teal-50"
+              rowClassName="bg-teal-100"
             />
           ) : null}
 
@@ -130,7 +158,7 @@ const ProviderPerformanceTable = ({ node }: ProviderPerformanceTableProps) => {
               label={data.patientPayment.label}
               metric={data.patientPayment}
               formatValue={formatCurrency}
-              rowClassName="bg-cyan-50"
+              rowClassName="bg-cyan-100"
             />
           ) : null}
 
@@ -138,13 +166,16 @@ const ProviderPerformanceTable = ({ node }: ProviderPerformanceTableProps) => {
             label={data.payroll.label}
             metric={data.payroll}
             formatValue={formatCurrency}
-            rowClassName="bg-orange-50"
+            rowClassName="bg-orange-100"
           />
 
           <MetricSectionRow
             label={data.operatingProfit.label}
             metric={data.operatingProfit}
             formatValue={formatCurrency}
+            rowClassName="bg-slate-100"
+            valueClassName={getProfitValueClassName}
+            totalClassName={getProfitTotalClassName}
           />
         </tbody>
       </table>

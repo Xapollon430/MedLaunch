@@ -57,6 +57,7 @@ const baseAdjustments = [7000, 7100, 7250, 7400, 7550, 7700, 7850, 8000, 8150, 8
 const basePayroll = [8300, 8400, 8550, 8700, 8850, 9000, 9150, 9300, 9450, 9600, 9750, 9900]
 const basePayerPayment = [13600, 14000, 14400, 14700, 15100, 15400, 15800, 16100, 16500, 16800, 17200, 17600]
 const basePatientPayment = [6400, 6600, 6800, 7100, 7400, 7700, 8000, 8300, 8500, 8900, 9200, 9400]
+const baseOperatingOverhead = [12000, 11800, 11500, 11200, 10800, 10400, 10000, 9600, 9200, 8800, 8500, 8200]
 
 const createNodeData = (factor: number): NodeData => {
   const totalVisits = scale(baseVisits, factor)
@@ -67,13 +68,14 @@ const createNodeData = (factor: number): NodeData => {
   const payroll = scale(basePayroll, factor)
   const payerPayment = scale(basePayerPayment, factor)
   const patientPayment = scale(basePatientPayment, factor)
+  const operatingOverhead = scale(baseOperatingOverhead, factor)
 
   const newPatientValues = totalVisits.map((value) => Math.round(value * 0.28))
   const followUpValues = totalVisits.map((value) => Math.round(value * 0.57))
   const codingValues = totalVisits.map((value) => value - Math.round(value * 0.28) - Math.round(value * 0.57))
 
   const operatingProfitValues = payments.map((value, index) =>
-    value - payroll[index] - Math.round(adjustments[index] * 0.18)
+    value - payroll[index] - Math.round(adjustments[index] * 0.18) - operatingOverhead[index]
   )
 
   const rvuPerPatientValues = ratioValue(rvus, totalVisits)

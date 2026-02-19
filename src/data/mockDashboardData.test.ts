@@ -1,4 +1,5 @@
 import { mockDashboardData } from './mockDashboardData'
+import type { HierarchyNode } from '../types/dashboard'
 
 test('contains required route datasets', () => {
   expect(mockDashboardData.providerPerformance).toBeDefined()
@@ -24,4 +25,18 @@ test('includes multiple locations and providers for demo exploration', () => {
     mockDashboardData.providerRankings['2024']?.PatientCount ?? {}
   )
   expect(rankingProviders.length).toBeGreaterThanOrEqual(8)
+})
+
+const collectNodes = (nodes: HierarchyNode[]): HierarchyNode[] =>
+  nodes.flatMap((node) => [node, ...(node.children ? collectNodes(node.children) : [])])
+
+test('includes both positive and negative operating profit values', () => {
+  const providerHierarchy2024 = mockDashboardData.providerPerformance['2024'] ?? []
+
+  const operatingProfitValues = collectNodes(providerHierarchy2024).flatMap(
+    (node) => node.data.operatingProfit.values
+  )
+
+  expect(operatingProfitValues.some((value) => value < 0)).toBe(true)
+  expect(operatingProfitValues.some((value) => value > 0)).toBe(true)
 })

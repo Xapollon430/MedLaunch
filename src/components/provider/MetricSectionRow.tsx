@@ -6,6 +6,8 @@ type DetailRow = {
   formatValue: (value: number) => string
 }
 
+type DynamicClassName = string | ((value: number) => string)
+
 type MetricSectionRowProps = {
   label: string
   metric: Metric
@@ -15,7 +17,12 @@ type MetricSectionRowProps = {
   onToggle?: () => void
   detailRows?: DetailRow[]
   rowClassName?: string
+  valueClassName?: DynamicClassName
+  totalClassName?: DynamicClassName
 }
+
+const resolveClassName = (className: DynamicClassName | undefined, value: number) =>
+  typeof className === 'function' ? className(value) : (className ?? '')
 
 const MetricSectionRow = ({
   label,
@@ -26,6 +33,8 @@ const MetricSectionRow = ({
   onToggle,
   detailRows = [],
   rowClassName,
+  valueClassName,
+  totalClassName,
 }: MetricSectionRowProps) => {
   return (
     <>
@@ -46,28 +55,33 @@ const MetricSectionRow = ({
           )}
         </td>
         {metric.values.map((value, index) => (
-          <td key={`${label}-${index}`} className="border border-slate-200 px-2 py-2 text-right text-sm">
+          <td
+            key={`${label}-${index}`}
+            className={`border border-slate-200 px-2 py-2 text-right text-sm ${resolveClassName(valueClassName, value)}`}
+          >
             {formatValue(value)}
           </td>
         ))}
-        <td className="border border-slate-200 bg-slate-50 px-2 py-2 text-right text-sm font-semibold">
+        <td
+          className={`border border-slate-200 bg-slate-200 px-2 py-2 text-right text-sm font-semibold text-slate-900 ${resolveClassName(totalClassName, metric.total)}`}
+        >
           {formatValue(metric.total)}
         </td>
       </tr>
 
       {expandable && expanded
         ? detailRows.map((row) => (
-            <tr key={`${label}-${row.label}`} className="bg-slate-50/50">
-              <td className="border border-slate-200 px-3 py-2 pl-8 text-sm text-slate-700">{row.label}</td>
+            <tr key={`${label}-${row.label}`} className="bg-slate-100">
+              <td className="border border-slate-200 px-3 py-2 pl-8 text-sm text-slate-800">{row.label}</td>
               {row.metric.values.map((value, index) => (
                 <td
                   key={`${row.label}-${index}`}
-                  className="border border-slate-200 px-2 py-2 text-right text-sm text-slate-700"
+                  className="border border-slate-200 px-2 py-2 text-right text-sm text-slate-800"
                 >
                   {row.formatValue(value)}
                 </td>
               ))}
-              <td className="border border-slate-200 bg-slate-100 px-2 py-2 text-right text-sm text-slate-800">
+              <td className="border border-slate-200 bg-slate-200 px-2 py-2 text-right text-sm font-semibold text-slate-900">
                 {row.formatValue(row.metric.total)}
               </td>
             </tr>
