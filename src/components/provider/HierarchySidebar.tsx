@@ -3,6 +3,7 @@ import { SIDEBAR_FILTERS, type SidebarFilter } from '../../data/constants'
 import type { HierarchyNode as HierarchyNodeType } from '../../types/dashboard'
 import { filterHierarchy } from '../../utils/hierarchy'
 import HierarchyNode from './HierarchyNode'
+import NodeTypeIcon from './NodeTypeIcon'
 
 type HierarchySidebarProps = {
   nodes: HierarchyNodeType[]
@@ -58,7 +59,10 @@ const HierarchySidebar = ({ nodes, selectedId, onSelect }: HierarchySidebarProps
                       : 'text-slate-700 hover:bg-slate-100'
                   }`}
                 >
-                  {node.label}
+                  <span className="flex items-center gap-2">
+                    <NodeTypeIcon nodeType={node.type} />
+                    <span>{node.label}</span>
+                  </span>
                 </button>
               </li>
             ))

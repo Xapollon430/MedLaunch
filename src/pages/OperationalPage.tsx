@@ -5,7 +5,7 @@ const OperationalPage = () => {
   const operationalData = mockDashboardData.operational
 
   return (
-    <section className="space-y-4">
+    <section data-testid="operational-content" className="mx-auto w-full max-w-[1100px] space-y-4">
       <OperationalLineChart title="Patients Seen 2023 vs 2024" data={operationalData} metric="patientsSeen" />
       <OperationalLineChart title="New Patient Count 2023 vs 2024" data={operationalData} metric="newPatients" />
       <OperationalLineChart title="Charges 2023 vs 2024" data={operationalData} metric="charges" />

@@ -115,33 +115,12 @@ const createNodeData = (factor: number): NodeData => {
 }
 
 const createHierarchy = (yearFactor: number): HierarchyNode[] => {
-  const jane = {
-    id: 'prov-jane-doe',
-    label: 'Jane Doe, MD',
+  const providerNode = (id: string, label: string, factor: number): HierarchyNode => ({
+    id,
+    label,
     type: 'provider',
-    data: createNodeData(yearFactor * 0.58),
-  } satisfies HierarchyNode
-
-  const alan = {
-    id: 'prov-alan-smith',
-    label: 'Alan Smith, DO',
-    type: 'provider',
-    data: createNodeData(yearFactor * 0.55),
-  } satisfies HierarchyNode
-
-  const maria = {
-    id: 'prov-maria-lee',
-    label: 'Maria Lee, MD',
-    type: 'provider',
-    data: createNodeData(yearFactor * 0.52),
-  } satisfies HierarchyNode
-
-  const eric = {
-    id: 'prov-eric-jones',
-    label: 'Eric Jones, PA-C',
-    type: 'provider',
-    data: createNodeData(yearFactor * 0.47),
-  } satisfies HierarchyNode
+    data: createNodeData(yearFactor * factor),
+  })
 
   return [
     {
@@ -149,14 +128,40 @@ const createHierarchy = (yearFactor: number): HierarchyNode[] => {
       label: 'New York Sleep Center',
       type: 'location',
       data: createNodeData(yearFactor * 1.35),
-      children: [jane, alan],
+      children: [
+        providerNode('prov-jane-doe', 'Jane Doe, MD', 0.58),
+        providerNode('prov-alan-smith', 'Alan Smith, DO', 0.55),
+      ],
     },
     {
       id: 'loc-bos',
       label: 'Boston Pulmonary Group',
       type: 'location',
       data: createNodeData(yearFactor * 1.22),
-      children: [maria, eric],
+      children: [
+        providerNode('prov-maria-lee', 'Maria Lee, MD', 0.52),
+        providerNode('prov-eric-jones', 'Eric Jones, PA-C', 0.47),
+      ],
+    },
+    {
+      id: 'loc-chi',
+      label: 'Chicago Respiratory Associates',
+      type: 'location',
+      data: createNodeData(yearFactor * 1.14),
+      children: [
+        providerNode('prov-nina-patel', 'Nina Patel, MD', 0.45),
+        providerNode('prov-paul-brown', 'Paul Brown, NP', 0.43),
+      ],
+    },
+    {
+      id: 'loc-aus',
+      label: 'Austin Sleep and Pulmonary',
+      type: 'location',
+      data: createNodeData(yearFactor * 1.08),
+      children: [
+        providerNode('prov-olivia-nguyen', 'Olivia Nguyen, MD', 0.41),
+        providerNode('prov-david-rivera', 'David Rivera, PA-C', 0.39),
+      ],
     },
   ]
 }
@@ -195,24 +200,40 @@ export const mockDashboardData: DashboardData = {
         'Smith, Alan': 1630,
         'Lee, Maria': 1542,
         'Jones, Eric': 1328,
+        'Patel, Nina': 1261,
+        'Brown, Paul': 1217,
+        'Nguyen, Olivia': 1160,
+        'Rivera, David': 1098,
       },
       RVUs: {
         'Doe, Jane': 2184,
         'Smith, Alan': 2066,
         'Lee, Maria': 1987,
         'Jones, Eric': 1732,
+        'Patel, Nina': 1658,
+        'Brown, Paul': 1599,
+        'Nguyen, Olivia': 1531,
+        'Rivera, David': 1464,
       },
       G2211: {
         'Doe, Jane': 604,
         'Smith, Alan': 552,
         'Lee, Maria': 497,
         'Jones, Eric': 441,
+        'Patel, Nina': 414,
+        'Brown, Paul': 389,
+        'Nguyen, Olivia': 366,
+        'Rivera, David': 342,
       },
       SleepStudy: {
         'Doe, Jane': 402,
         'Smith, Alan': 378,
         'Lee, Maria': 351,
         'Jones, Eric': 309,
+        'Patel, Nina': 291,
+        'Brown, Paul': 276,
+        'Nguyen, Olivia': 259,
+        'Rivera, David': 243,
       },
     },
     '2024': {
@@ -221,24 +242,40 @@ export const mockDashboardData: DashboardData = {
         'Smith, Alan': 1716,
         'Lee, Maria': 1620,
         'Jones, Eric': 1478,
+        'Patel, Nina': 1412,
+        'Brown, Paul': 1365,
+        'Nguyen, Olivia': 1298,
+        'Rivera, David': 1214,
       },
       RVUs: {
         'Doe, Jane': 2308,
         'Smith, Alan': 2193,
         'Lee, Maria': 2086,
         'Jones, Eric': 1899,
+        'Patel, Nina': 1823,
+        'Brown, Paul': 1762,
+        'Nguyen, Olivia': 1687,
+        'Rivera, David': 1595,
       },
       G2211: {
         'Doe, Jane': 649,
         'Smith, Alan': 588,
         'Lee, Maria': 531,
         'Jones, Eric': 474,
+        'Patel, Nina': 446,
+        'Brown, Paul': 418,
+        'Nguyen, Olivia': 394,
+        'Rivera, David': 366,
       },
       SleepStudy: {
         'Doe, Jane': 431,
         'Smith, Alan': 402,
         'Lee, Maria': 378,
         'Jones, Eric': 339,
+        'Patel, Nina': 319,
+        'Brown, Paul': 304,
+        'Nguyen, Olivia': 284,
+        'Rivera, David': 267,
       },
     },
   },

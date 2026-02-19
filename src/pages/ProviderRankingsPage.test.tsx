@@ -8,4 +8,5 @@ test('renders rankings charts for all metrics', () => {
   expect(screen.getByText(/RVUs Year to Date/i)).toBeInTheDocument()
   expect(screen.getByText(/G2211 Codes Year to Date/i)).toBeInTheDocument()
   expect(screen.getByText(/Sleep Studies Year to Date/i)).toBeInTheDocument()
+  expect(screen.getByTestId('rankings-content')).toHaveClass('mx-auto')
 })

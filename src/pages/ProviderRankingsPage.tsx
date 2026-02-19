@@ -28,7 +28,7 @@ const ProviderRankingsPage = () => {
   )
 
   return (
-    <section className="space-y-4">
+    <section data-testid="rankings-content" className="mx-auto w-full max-w-[1080px] space-y-4">
       <YearSelector availableYears={availableYears} activeYear={activeYear} onYearChange={setActiveYear} />
 
       <RankingsBarChart

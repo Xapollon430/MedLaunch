@@ -67,22 +67,29 @@ const OperationalLineChart = ({ title, data, metric }: OperationalLineChartProps
     <section className="rounded-lg border border-slate-200 bg-white p-4 shadow-sm">
       <h3 className="mb-3 text-lg font-semibold text-slate-900">{title}</h3>
       <div className="w-full overflow-x-auto">
-        <LineChart width={920} height={320} data={chartData} margin={{ top: 12, right: 18, left: 0, bottom: 8 }}>
-          <CartesianGrid strokeDasharray="3 3" stroke="#e2e8f0" />
-          <XAxis dataKey="month" tick={{ fontSize: 11 }} />
-          <YAxis tick={{ fontSize: 11 }} tickFormatter={(value) => formatValue(metric, value as number)} />
-          <Tooltip formatter={(value) => formatTooltipValue(metric, value)} />
-          {years.map((year, index) => (
-            <Line
-              key={year}
-              type="monotone"
-              dataKey={year}
-              stroke={colors[index % colors.length]}
-              strokeWidth={2}
-              dot={false}
-            />
-          ))}
-        </LineChart>
+        <div className="mx-auto w-[920px]">
+          <LineChart
+            width={920}
+            height={320}
+            data={chartData}
+            margin={{ top: 12, right: 18, left: 0, bottom: 8 }}
+          >
+            <CartesianGrid strokeDasharray="3 3" stroke="#e2e8f0" />
+            <XAxis dataKey="month" tick={{ fontSize: 11 }} />
+            <YAxis tick={{ fontSize: 11 }} tickFormatter={(value) => formatValue(metric, value as number)} />
+            <Tooltip formatter={(value) => formatTooltipValue(metric, value)} />
+            {years.map((year, index) => (
+              <Line
+                key={year}
+                type="monotone"
+                dataKey={year}
+                stroke={colors[index % colors.length]}
+                strokeWidth={2}
+                dot={false}
+              />
+            ))}
+          </LineChart>
+        </div>
       </div>
     </section>
   )

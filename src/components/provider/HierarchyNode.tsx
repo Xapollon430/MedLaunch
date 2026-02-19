@@ -1,5 +1,6 @@
 import { useState } from 'react'
 import type { HierarchyNode as HierarchyNodeType } from '../../types/dashboard'
+import NodeTypeIcon from './NodeTypeIcon'
 
 type HierarchyNodeProps = {
   node: HierarchyNodeType
@@ -29,7 +30,10 @@ const HierarchyNode = ({ node, depth, selectedId, onSelect }: HierarchyNodeProps
         }`}
         style={{ paddingLeft: `${depth * 14 + 8}px` }}
       >
-        <span>{node.label}</span>
+        <span className="flex items-center gap-2">
+          <NodeTypeIcon nodeType={node.type} />
+          <span>{node.label}</span>
+        </span>
         {hasChildren ? <span className="text-xs text-slate-500">{isOpen ? '▾' : '▸'}</span> : null}
       </button>
       {hasChildren && isOpen ? (
